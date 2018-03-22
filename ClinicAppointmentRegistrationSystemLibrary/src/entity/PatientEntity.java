@@ -14,7 +14,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
+/**
+ * Version: 1.00
+ * @author Yk
+ */
 
 @Entity
 
