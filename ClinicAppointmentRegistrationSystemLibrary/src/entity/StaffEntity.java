@@ -8,7 +8,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import util.enumeration.AccessRightEnum;
 
 @Entity
 
@@ -23,8 +22,6 @@ public class StaffEntity implements Serializable {
     private String firstName;
     @Column(nullable = false)
     private String lastName;
-    @Enumerated(EnumType.STRING)
-    private AccessRightEnum accessRightEnum;
     @Column(unique = true)
     private String username;
     @Column(nullable = false)
@@ -93,14 +90,6 @@ public class StaffEntity implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public AccessRightEnum getAccessRightEnum() {
-        return accessRightEnum;
-    }
-
-    public void setAccessRightEnum(AccessRightEnum accessRightEnum) {
-        this.accessRightEnum = accessRightEnum;
     }
 
     public String getUsername() {
