@@ -6,7 +6,7 @@
 package entity;
 
 /**
- * Version 1.00
+ * Version 1.01
  * @author Yosafat
  */
 public class AppointmentEntity {
