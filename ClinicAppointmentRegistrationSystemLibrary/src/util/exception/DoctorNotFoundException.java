@@ -9,6 +9,6 @@ package util.exception;
  *
  * @author Aden
  */
-public class DoctorNotFoundException {
+public class DoctorNotFoundException extends Exception {
     
 }

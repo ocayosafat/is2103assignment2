@@ -6,9 +6,17 @@
 package util.exception;
 
 /**
- *
+ * Version 1.0
  * @author Aden
  */
-public class PatientNotFoundException {
+public class PatientNotFoundException extends Exception {
+    
+    public PatientNotFoundException() {
+    }
+    
+    public PatientNotFoundException(String msg)
+    {
+        super(msg);
+    }
     
 }
