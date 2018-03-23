@@ -5,10 +5,21 @@
  */
 package ejb.session.stateless;
 
+import entity.PatientEntity;
+import java.util.List;
+import util.exception.PatientNotFoundException;
+
 /**
  *
  * @author Aden
  */
-public class DoctorEntityControllerRemote {
+public interface DoctorEntityControllerRemote {
+    
+    PatientEntity createNewPatient(PatientEntity newPatientEntity);
+    List<PatientEntity> retrieveAllPatients();
+    PatientEntity retrievePatientByPatientId(Long PatientId) throws PatientNotFoundException;
+    PatientEntity retrievePatientByPatientIdentityNumber(String identityNumber) throws PatientNotFoundException;
+    void updatePatient(PatientEntity patientEntity);
+    void deletePatient(String identityNumber) throws PatientNotFoundException;
     
 }
