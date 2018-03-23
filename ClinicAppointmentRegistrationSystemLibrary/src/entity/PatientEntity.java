@@ -45,11 +45,6 @@ public class PatientEntity implements Serializable
     @Column(nullable = false)
     private String securityCode;
     
-    @OneToMany
-    private ConsultationEntity consultationEntity;
-
-    @OneToMany
-    private AppointmentEntity appointmentEntity;
     
     public PatientEntity()
     {
@@ -180,21 +175,6 @@ public class PatientEntity implements Serializable
 
     
     
-    public ConsultationEntity getConsultationEntity() {
-        return consultationEntity;
-    }
-
-    public void setConsultationEntity(ConsultationEntity consultationEntity) {
-        this.consultationEntity = consultationEntity;
-    }
-
-    public AppointmentEntity getAppointmentEntity() {
-        return appointmentEntity;
-    }
-
-    public void setAppointmentEntity(AppointmentEntity appointmentEntity) {
-        this.appointmentEntity = appointmentEntity;
-    }
 
     
 

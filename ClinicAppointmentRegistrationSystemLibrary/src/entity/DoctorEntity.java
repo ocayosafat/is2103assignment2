@@ -13,9 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Version: 1.01
- * Added OneToMany relationship
- * 
+ * Version: 1.00
  * @author Aden
  */
 public class DoctorEntity implements Serializable {
@@ -33,14 +31,7 @@ public class DoctorEntity implements Serializable {
     private String registration;
     @Column (nullable = false)
     private String qualifications;
-    
-    @OneToMany
-    private ConsultationEntity consultationEntity;
 
-    @OneToMany
-    private AppointmentEntity appointmentEntity;
-    
-    
     public DoctorEntity() {
     }
 
@@ -122,19 +113,4 @@ public class DoctorEntity implements Serializable {
         this.qualifications = qualifications;
     }
     
-    public ConsultationEntity getConsultationEntity() {
-        return consultationEntity;
-    }
-
-    public void setConsultationEntity(ConsultationEntity consultationEntity) {
-        this.consultationEntity = consultationEntity;
-    }
-
-    public AppointmentEntity getAppointmentEntity() {
-        return appointmentEntity;
-    }
-
-    public void setAppointmentEntity(AppointmentEntity appointmentEntity) {
-        this.appointmentEntity = appointmentEntity;
-    }
 }

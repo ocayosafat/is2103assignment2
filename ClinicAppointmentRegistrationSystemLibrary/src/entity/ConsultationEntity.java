@@ -24,10 +24,10 @@ public class ConsultationEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long consultationId;
-    @Column(nullable = false)
-    private Long patientId;
-    @Column(nullable = false)
-    private Long doctorId;
+    @ManyToOne
+    private DoctorEntity doctor;
+    @ManyToOne
+    private PatientEntity patient;
     @Column(nullable = false)
     private Long queueNumber;
     @Column(nullable = false,length = 10)
@@ -39,15 +39,13 @@ public class ConsultationEntity implements Serializable {
         
     }
 
-    public ConsultationEntity(Long patientId, Long doctorId, Long queueNumber, String date, String time) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
+    public ConsultationEntity(DoctorEntity doctor, PatientEntity patient, Long queueNumber, String date, String time) {
+        this.doctor = doctor;
+        this.patient = patient;
         this.queueNumber = queueNumber;
         this.date = date;
         this.time = time;
     }
-
-
     
     @Override
     public int hashCode()
@@ -84,23 +82,13 @@ public class ConsultationEntity implements Serializable {
         return consultationId;
     }
 
-    public Long getPatientId() {
-        return patientId;
+    public DoctorEntity getDoctor() {
+        return doctor;
     }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public PatientEntity getPatient() {
+        return patient;
     }
-
-    public Long getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
-    }
-
-
 
     public Long getQueueNumber() {
         return queueNumber;
@@ -118,6 +106,13 @@ public class ConsultationEntity implements Serializable {
         this.consultationId = consultationId;
     }
 
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
+    }
+
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
+    }
 
     public void setQueueNumber(Long queueNumber) {
         this.queueNumber = queueNumber;

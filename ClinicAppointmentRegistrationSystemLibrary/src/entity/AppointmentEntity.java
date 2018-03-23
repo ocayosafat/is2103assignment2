@@ -1,3 +1,4 @@
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -6,7 +7,7 @@
 package entity;
 
 /**
- * Version 1.01
+ * Version 1.00
  * @author Yosafat
  */
 public class AppointmentEntity {
@@ -16,10 +17,10 @@ public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentId;
-    @Column(nullable = false)
-    private Long patientId;
-    @Column(nullable = false)
-    private Long doctorId;
+    @ManyToOne
+    private PatientEntity patient;
+    @ManyToOne
+    private DoctorEntity doctor;
     @Column(nullable = false, length = 10)
     private String date;
     @Column(nullable = false, length = 5)
@@ -28,9 +29,9 @@ public class AppointmentEntity {
     public AppointmentEntity() {
     }
 
-    public AppointmentEntity(Long patientId, Long doctorId, String date, String time) {
-        this.patientId = patientId;
-        this.doctorId = doctorId;
+    public AppointmentEntity(PatientEntity patient, DoctorEntity doctor, String date, String time) {
+        this.patient = patient;
+        this.doctor = doctor;
         this.date = date;
         this.time = time;
     }
@@ -67,11 +68,11 @@ public class AppointmentEntity {
         return appointmentId;
     }
 
-    public Long getPatientId() {
-        return patientId;
+    public PatientEntity getPatient() {
+        return patient;
     }
 
-    public Long getDoctorId() {
+    public DoctorEntity getDoctor() {
         return doctor;
     }
 
@@ -83,12 +84,12 @@ public class AppointmentEntity {
         return time;
     }
 
-    public void setPatientId(Long patientId) {
-        this.patientId = patientId;
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
     }
 
-    public void setDoctorId(Long doctorId) {
-        this.doctorId = doctorId;
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
     }
 
     public void setDate(String date) {
