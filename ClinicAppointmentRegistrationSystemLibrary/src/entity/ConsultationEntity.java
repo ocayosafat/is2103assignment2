@@ -84,6 +84,22 @@ public class ConsultationEntity implements Serializable {
         return consultationId;
     }
 
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
 
 
     public Long getQueueNumber() {
