@@ -17,9 +17,9 @@ public class AppointmentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentId;
     @ManyToOne
-    private PatientEntity patient;
+    private Long patientId;
     @ManyToOne
-    private DoctorEntity doctor;
+    private Long doctorId;
     @Column(nullable = false, length = 10)
     private String date;
     @Column(nullable = false, length = 5)
@@ -28,9 +28,9 @@ public class AppointmentEntity {
     public AppointmentEntity() {
     }
 
-    public AppointmentEntity(PatientEntity patient, DoctorEntity doctor, String date, String time) {
-        this.patient = patient;
-        this.doctor = doctor;
+    public AppointmentEntity(Long patientId, Long doctorId, String date, String time) {
+        this.patientId = patientId;
+        this.doctorId = doctorId;
         this.date = date;
         this.time = time;
     }
@@ -67,11 +67,11 @@ public class AppointmentEntity {
         return appointmentId;
     }
 
-    public PatientEntity getPatient() {
-        return patient;
+    public Long getPatientId() {
+        return patientId;
     }
 
-    public DoctorEntity getDoctor() {
+    public Long getDoctorId() {
         return doctor;
     }
 
@@ -83,12 +83,12 @@ public class AppointmentEntity {
         return time;
     }
 
-    public void setPatient(PatientEntity patient) {
-        this.patient = patient;
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
     }
 
-    public void setDoctor(DoctorEntity doctor) {
-        this.doctor = doctor;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
     public void setDate(String date) {
