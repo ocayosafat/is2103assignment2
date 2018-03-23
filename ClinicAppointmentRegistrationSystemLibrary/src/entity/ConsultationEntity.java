@@ -78,10 +78,6 @@ public class ConsultationEntity implements Serializable {
         return serialVersionUID;
     }
 
-    public Long getConsultationId() {
-        return consultationId;
-    }
-
     public DoctorEntity getDoctor() {
         return doctor;
     }
@@ -100,10 +96,6 @@ public class ConsultationEntity implements Serializable {
 
     public String getTime() {
         return time;
-    }
-
-    public void setConsultationId(Long consultationId) {
-        this.consultationId = consultationId;
     }
 
     public void setDoctor(DoctorEntity doctor) {
