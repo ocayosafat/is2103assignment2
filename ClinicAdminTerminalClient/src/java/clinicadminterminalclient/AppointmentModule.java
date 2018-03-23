@@ -111,7 +111,7 @@ public class AppointmentModule {
             System.out.println("Appointments: \n");
             System.out.println("Id |Date       |Time   |Doctor \n");
             
-            List<AppointmentEntity> appointmentEntities = appointmentEntityControllerRemote.retrieveAppointmentByPatientEntity(patientEntity);
+            List<AppointmentEntity> appointmentEntities = appointmentEntityControllerRemote.retrieveAppointmentByPatient(patientEntity);
             
             for(AppointmentEntity appointmentEntity:appointmentEntities) {
                 System.out.println(appointmentEntity.getAppointmentId() + " |" + appointmentEntity.getDate() + " |" + appointmentEntity.getTime() + " |" +  appointmentEntity.getDoctor().getFirstName() + " " + appointmentEntity.getDoctor().getLastName());
@@ -247,7 +247,7 @@ public class AppointmentModule {
             System.out.println("Appointments: \n");
             System.out.println("Id |Date       |Time   |Doctor \n");
             
-            List<AppointmentEntity> appointmentEntities = appointmentEntityControllerRemote.retrieveAppointmentByPatientEntity(patientEntity);
+            List<AppointmentEntity> appointmentEntities = appointmentEntityControllerRemote.retrieveAppointmentByPatient(patientEntity);
             
             for(AppointmentEntity appointmentEntity:appointmentEntities) {
                 System.out.println(appointmentEntity.getAppointmentId() + " |" + appointmentEntity.getDate() + " |" +  appointmentEntity.getTime() + " |" + appointmentEntity.getDoctor().getFirstName() + " " + appointmentEntity.getDoctor().getLastName());
