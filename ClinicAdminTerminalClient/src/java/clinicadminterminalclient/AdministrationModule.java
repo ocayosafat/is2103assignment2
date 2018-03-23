@@ -329,7 +329,7 @@ public class AdministrationModule {
         System.out.println("*** CARS :: Administration Operation :: Patient Management :: Delete Patient ***\n");
         System.out.print("Enter Patient ID for Patient to be deleted : > ");
         identityNumberToBeDeleted = scanner.nextLine().trim(); 
-        PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByIdentityNumber(identityNumberToBeDeleted);
+        PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(identityNumberToBeDeleted);
         System.out.printf("Confirm Delete Patient %s %s (Patient Identity Number: %d) (Enter 'Y' to Delete)> ", patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getIdentityNumber());
         input = scanner.nextLine().trim();
         
