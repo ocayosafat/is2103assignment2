@@ -9,6 +9,12 @@ package util.exception;
  *
  * @author Aden
  */
-public class AppointmentNotFoundException {
+public class AppointmentNotFoundException extends Exception {
+    public AppointmentNotFoundException() {
+    }
     
+    public AppointmentNotFoundException(String msg)
+    {
+        super(msg);
+    }
 }

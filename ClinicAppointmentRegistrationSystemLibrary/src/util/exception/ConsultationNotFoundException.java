@@ -9,12 +9,11 @@ package util.exception;
  *
  * @author Aden
  */
-public class StaffNotFoundException extends Exception {
-    public StaffNotFoundException()
-    {
+public class ConsultationNotFoundException extends Exception {
+    public ConsultationNotFoundException() {
     }
     
-    public StaffNotFoundException(String msg)
+    public ConsultationNotFoundException(String msg)
     {
         super(msg);
     }

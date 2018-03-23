@@ -9,6 +9,12 @@ package util.exception;
  *
  * @author Aden
  */
-public class InvalidLoginException {
+public class InvalidLoginException extends Exception{
+    public InvalidLoginException() {
+    }
     
+    public InvalidLoginException(String msg)
+    {
+        super(msg);
+    }
 }
