@@ -9,12 +9,12 @@ package util.exception;
  *
  * @author Aden
  */
-public class DoctorNotFoundException extends Exception {
-   
-    public DoctorNotFoundException() {
+public class ConsultationFullyBookedException extends Exception {
+    
+    public ConsultationFullyBookedException() {
     }
     
-    public DoctorNotFoundException(String msg)
+    public ConsultationFullyBookedException(String msg)
     {
         super(msg);
     }
