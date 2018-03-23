@@ -16,9 +16,9 @@ public class AppointmentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long appointmentId;
-    @ManyToOne
+    @Column(nullable = false)
     private Long patientId;
-    @ManyToOne
+    @Column(nullable = false)
     private Long doctorId;
     @Column(nullable = false, length = 10)
     private String date;
