@@ -16,11 +16,22 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import entity.AppointmentEntity;
+import entity.DoctorEntity;
+import entity.PatientEntity;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 
 /**
- * Version 1.0
+ * Version 1.02
  * @author Yk
- * Delete appointment does not affect doctor or patient
+ * Implemented isAvaliableByDateTimeDoctor
+ * Implemented retrieveAppointmentByPatient
+ * Need to verify functionality
+ * 
+ * * Delete appointment does not affect doctor or patient
  */
 
 
@@ -82,6 +93,18 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
         }
     }
     
+
+    @Override
+    public List<AppointmentEntity> retrieveAppointmentByPatient(PatientEntity patientEntity) throws AppointmentNotFoundException
+    {
+        Query query = entityManager.createQuery("SELECT a FROM AppointmentEntity a WHERE a.patiententity = :inPatientenity");
+        query.setParameter("inPatientenity", patientEntity);
+      
+            return query.getResultList();
+       
+    }
+    
+    
     @Override
     public void updateAppointment(AppointmentEntity appointmentEntity)
     {
@@ -95,6 +118,39 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     {
         AppointmentEntity appointmentEntityToRemove =retrieveAppointmentByAppointmentId(appointmentId);
         entityManager.remove(appointmentEntityToRemove);
+    }
+    
+    @Override
+    public boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
+      
+        //query appointment
+        
+        
+        Query query = entityManager.createQuery("SELECT a FROM AppointmentEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
+        query.setParameter("inDoctorentity", doctorEntity);
+        query.setParameter("inDate", Date);
+        query.setParameter("inTime", Time);
+        
+        
+        
+        try {
+            //Uncertain, need to confirm functionality***************************
+            AppointmentEntity taken = query.getSingleResult();
+            if(taken == null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+       
+        }
+        catch(NoResultException | NonUniqueResultException ex) {
+            return  true;
+        }
+        
+        
+        
+  
     }
 
     
