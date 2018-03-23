@@ -18,7 +18,7 @@ import ejb.session.stateless.DoctorEntityControllerRemote;
 import ejb.session.stateless.StaffEntityControllerRemote;
 
 /**
- * Version 1.0
+ * Version 1.01
  * @author Aden
  */
 public class AdministrationModule {
@@ -199,61 +199,68 @@ public class AdministrationModule {
         System.out.println("*** CARS :: Administration Operation :: Patient Management :: Update Patient ***\n");
         System.out.print("Enter Identity Number for patient to be updated: > ");
         patientIdentityNumberToUpdate = scanner.nextLine().trim();
-        PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(patientIdentityNumberToUpdate);
         
-        System.out.print("Enter First Name (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setFirstName(input);
-        }
+        try {
+            PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(patientIdentityNumberToUpdate);
+        
+            System.out.print("Enter First Name (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setFirstName(input);
+            }
                 
-        System.out.print("Enter Last Name (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setLastName(input);
-        }
+            System.out.print("Enter Last Name (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setLastName(input);
+            }
         
-        scanner.nextLine();
-        System.out.print("Enter Gender (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setGender(input);
-        }
+            scanner.nextLine();
+            System.out.print("Enter Gender (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setGender(input);
+            }
         
-        scanner.nextLine();
-        System.out.print("Enter Age (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setAge(Integer.parseInt(input));
-        }
+            scanner.nextLine();
+            System.out.print("Enter Age (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setAge(Integer.parseInt(input));
+            }
         
-        scanner.nextLine();
-        System.out.print("Enter Phone (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setPhone(input); //assume phone = string
-        }
+            scanner.nextLine();
+            System.out.print("Enter Phone (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setPhone(input); //assume phone = string
+            }
         
-        scanner.nextLine();
-        System.out.print("Enter Address (blank if no change)> ");
-        input = scanner.nextLine().trim();
-        if(input.length() > 0)
-        {
-            patientEntity.setAddress(input); 
+            scanner.nextLine();
+            System.out.print("Enter Address (blank if no change)> ");
+            input = scanner.nextLine().trim();
+            if(input.length() > 0)
+            {
+                patientEntity.setAddress(input); 
             
+            }
+        
+            // Assume security code cant be changed once created
+        
+            patientEntityControllerRemote.updatePatient(patientEntity);
+            System.out.println("Patient updated successfully!\n");
+        } catch (PatientNotFoundException ex) {
+            System.out.println("An error occured while trying to update patient, " + ex.getMessage() + "!");
         }
         
-        // Assume security code cant be changed once created
-        
-        patientEntityControllerRemote.updatePatient(patientEntity);
-        System.out.println("Patient updated successfully!\n");
     }
     
+    //This Method assumes all consultation/appointment entities are not changed
     public void doUpdatePatient(PatientEntity patientEntity) {
         
         Scanner scanner = new Scanner(System.in);        
@@ -313,12 +320,61 @@ public class AdministrationModule {
         System.out.println("Patient updated successfully!\n");
     }
     
+    //This Method assumes all consultation/appointment entities are not changed
     public void doDeletePatient() {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        String identityNumberToBeDeleted;
+        
+        System.out.println("*** CARS :: Administration Operation :: Patient Management :: Delete Patient ***\n");
+        System.out.print("Enter Patient ID for Patient to be deleted : > ");
+        identityNumberToBeDeleted = scanner.nextLine().trim(); 
+        PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByIdentityNumber(identityNumberToBeDeleted);
+        System.out.printf("Confirm Delete Patient %s %s (Patient Identity Number: %d) (Enter 'Y' to Delete)> ", patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getIdentityNumber());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                patientEntityControllerRemote.deletePatient(patientEntity.getIdentityNumber());
+                System.out.println("Patient deleted successfully!\n");
+            } 
+            catch (PatientNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting patient: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Patient NOT deleted!\n");
+        }
     }
-    
+    //This Method assumes all consultation/appointment entities are not changed
     public void doDeletePatient(PatientEntity patientEntity) {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        
+        System.out.println("*** CARS :: Administration Operation :: Patient Management :: Delete Patient ***\n");
+        System.out.printf("Confirm Delete Patient %s %s (Patient Identity Number: %d) (Enter 'Y' to Delete)> ", patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getIdentityNumber());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                patientEntityControllerRemote.deletePatient(patientEntity.getIdentityNumber());
+                System.out.println("Patient deleted successfully!\n");
+            } 
+            catch (PatientNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting patient: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Patient NOT deleted!\n");
+        }
     }
     
     public void doViewPatientDetails() {
@@ -516,7 +572,7 @@ public class AdministrationModule {
             staffEntityControllerRemote.updateStaff(staffEntity);
             System.out.println("Staff updated successfully!\n");
         } catch(StaffNotFoundException ex) {
-            System.out.println("An error occured while trying to retrieve staff details: "+ ex.getMessage() + "!");
+            System.out.println("An error occured while trying to update staff: "+ ex.getMessage() + "!");
         }
     }
     
@@ -560,12 +616,62 @@ public class AdministrationModule {
         System.out.println("Staff updated successfully!\n");
     }
     
+    
     public void doDeleteStaff() {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        Long staffIdToBeDeleted;
+        
+        System.out.println("*** CARS :: Administration Operation :: Staff Management :: Delete Staff ***\n");
+        System.out.print("Enter Staff ID for Staff to be deleted : > ");
+        staffIdToBeDeleted = scanner.nextLong(); 
+        scanner.nextLine(); //eats \n
+        StaffEntity tempStaffEntity = staffEntityControllerRemote.retrieveStaffByStaffId(staffIdToBeDeleted);
+        System.out.printf("Confirm Delete Staff %s %s (Staff ID: %d) (Enter 'Y' to Delete)> ", tempStaffEntity.getFirstName(), tempStaffEntity.getLastName(), tempStaffEntity.getStaffId());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                staffEntityControllerRemote.deleteStaff(tempStaffEntity.getStaffId());
+                System.out.println("Staff deleted successfully!\n");
+            } 
+            catch (StaffNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting staff: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Staff NOT deleted!\n");
+        }
     }
     
     public void doDeleteStaff(StaffEntity staffEntity) {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        
+        System.out.println("*** CARS :: Administration Operation :: Staff Management :: Delete Staff ***\n");
+        System.out.printf("Confirm Delete Staff %s %s (Staff ID: %d) (Enter 'Y' to Delete)> ", staffEntity.getFirstName(), staffEntity.getLastName(), staffEntity.getStaffId());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                staffEntityControllerRemote.deleteStaff(staffEntity.getStaffId());
+                System.out.println("Staff deleted successfully!\n");
+            } 
+            catch (StaffNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting staff: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Staff NOT deleted!\n");
+        }
     }
     
     public void doViewAllStaffs() {
@@ -699,7 +805,7 @@ public class AdministrationModule {
             System.out.println("An error has occurred while retrieving doctor: " + ex.getMessage() + "\n");
         }
     }
-    
+    //This Method assumes all consultation/appointment entities are not changed
     public void doUpdateDoctor() {
         Scanner scanner = new Scanner(System.in);        
         String input;
@@ -747,10 +853,10 @@ public class AdministrationModule {
             doctorEntityControllerRemote.updateDoctor(doctorEntity);
             System.out.println("Doctor updated successfully!\n");
         } catch (DoctorNotFoundException ex) {
-            System.out.println("An error occured while trying to retrieve the doctor: " + ex.getMessage() + "!");
+            System.out.println("An error occured while trying to update doctor: " + ex.getMessage() + "!");
         }
     }
-    
+    //This Method assumes all consultation/appointment entities are not changed
     public void doUpdateDoctor(DoctorEntity doctorEntity) {
         Scanner scanner = new Scanner(System.in);        
         String input;
@@ -789,13 +895,62 @@ public class AdministrationModule {
         doctorEntityControllerRemote.updateDoctor(doctorEntity);
         System.out.println("Doctor updated successfully!\n");
     }
-    
+    //This Method assumes all consultation/appointment entities are not changed
     public void doDeleteDoctor() {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        Long doctorIdToBeDeleted;
+        
+        System.out.println("*** CARS :: Administration Operation :: Doctor Management :: Delete Doctor ***\n");
+        System.out.print("Enter Doctor ID for Doctor to be deleted : > ");
+        doctorIdToBeDeleted = scanner.nextLong(); 
+        scanner.nextLine(); //eats \n
+        DoctorEntity doctorEntity = doctorEntityControllerRemote.retrieveDoctorByDoctorId(doctorIdToBeDeleted);
+        System.out.printf("Confirm Delete Doctor %s %s (Doctor ID: %d) (Enter 'Y' to Delete)> ", doctorEntity.getFirstName(), doctorEntity.getLastName(), doctorEntity.getDoctorId());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                doctorEntityControllerRemote.deleteDoctor(doctorEntity.getDoctorId());
+                System.out.println("Doctor deleted successfully!\n");
+            } 
+            catch (DoctorNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting doctor: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Doctor NOT deleted!\n");
+        }
     }
-    
+    //This Method assumes all consultation/appointment entities are not changed
     public void doDeleteDoctor(DoctorEntity doctorEntity) {
-        //TODO
+        Scanner scanner = new Scanner(System.in);        
+        String input;
+        
+        System.out.println("*** CARS :: Administration Operation :: Doctor Management :: Delete Doctor ***\n");
+        System.out.printf("Confirm Delete Doctor %s %s (Doctor ID: %d) (Enter 'Y' to Delete)> ", doctorEntity.getFirstName(), doctorEntity.getLastName(), doctorEntity.getDoctorId());
+        input = scanner.nextLine().trim();
+        
+        if(input.equals("Y"))
+        {
+            try 
+            {
+                doctorEntityControllerRemote.deleteDoctor(doctorEntity.getDoctorId());
+                System.out.println("Doctor deleted successfully!\n");
+            } 
+            catch (DoctorNotFoundException ex) 
+            {
+                System.out.println("An error has occurred while deleting doctor: " + ex.getMessage() + "\n");
+            }            
+        }
+        else
+        {
+            System.out.println("Doctor NOT deleted!\n");
+        }
     }
     
     public void doViewAllDoctors() {
