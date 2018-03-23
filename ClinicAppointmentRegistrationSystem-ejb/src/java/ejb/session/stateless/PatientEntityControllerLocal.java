@@ -10,17 +10,15 @@ import java.util.List;
 import util.exception.PatientNotFoundException;
 
 /**
- * Version 1.0
+ *
  * @author Aden
  */
-public interface DoctorEntityControllerLocal {
-    
+public interface PatientEntityControllerLocal {
     PatientEntity createNewPatient(PatientEntity newPatientEntity);
     List<PatientEntity> retrieveAllPatients();
     PatientEntity retrievePatientByPatientId(Long PatientId) throws PatientNotFoundException;
     PatientEntity retrievePatientByPatientIdentityNumber(String identityNumber) throws PatientNotFoundException;
     void updatePatient(PatientEntity patientEntity);
     void deletePatient(String identityNumber) throws PatientNotFoundException;
-    
     
 }
