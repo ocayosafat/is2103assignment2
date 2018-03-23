@@ -6,16 +6,24 @@
 package clinicadminterminalclient;
 
 /**
- *
- * @author Aden
+ * Version 1.00
+ * @author Yosafat
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
+    @EJB
+    private static StaffEntityControllerRemote staffEntityControllerRemote;
+    @EJB
+    private static PatientEntityControllerRemote patientEntityControllerRemote;
+    @EJB
+    private static DoctorEntityControllerRemote doctorEntityControllerRemote;
+    @EJB
+    private static ConsultationEntityControllerRemote consultationEntityControllerRemote;
+    @EJB
+    private static AppointmentEntityControllerRemote appointmentEntityControllerRemote;
+
     public static void main(String[] args) {
-        // TODO code application logic here
+        MainApp mainApp = new MainApp(staffEntityControllerRemote, patientEntityControllerRemote, doctorEntityControllerRemote, consultationEntityControllerRemote, appointmentEntityControllerRemote);
+    	mainApp.runApp();
     }
-    
 }
