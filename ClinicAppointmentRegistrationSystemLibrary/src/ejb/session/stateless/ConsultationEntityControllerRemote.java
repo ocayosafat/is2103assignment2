@@ -5,10 +5,22 @@
  */
 package ejb.session.stateless;
 
+import entity.ConsultationEntity;
+import java.util.List;
+import util.exception.ConsultationNotFoundException;
+
 /**
  *
  * @author Aden
  */
-public class ConsultationEntityControllerRemote {
+public interface ConsultationEntityControllerRemote {
+    
+    ConsultationEntity createNewQueue(ConsultationEntity newConsultationEntity);
+    ConsultationEntity createNewConsultation(ConsultationEntity newConsultationEntity);
+    List<ConsultationEntity> retrieveAllConsultation();
+    ConsultationEntity retrieveConsultationByConsultationId(Long consultationId) throws ConsultationNotFoundException;
+    List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date);
+    void updateConsultation(ConsultationEntity consultationEntity);
+    void deleteConsultation(Long consultationId);
     
 }

@@ -6,11 +6,18 @@
  */
 package entity;
 
+import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 /**
  * Version 1.00
  * @author Yosafat
  */
-public class AppointmentEntity {
+public class AppointmentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

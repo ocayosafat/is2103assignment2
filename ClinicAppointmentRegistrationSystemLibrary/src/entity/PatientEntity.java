@@ -37,20 +37,20 @@ public class PatientEntity implements Serializable
     @Column(nullable = false)
     private String gender;
     @Column(nullable = false)
-    private long age;
+    private int age;
     @Column(nullable = false)
     private String phone;
     @Column(nullable = false)
     private String address;
     @Column(nullable = false)
-    private String securityCode;
+    private Long securityCode;
     
     
     public PatientEntity()
     {
     }
 
-    public PatientEntity(String identityNumber, String firstName, String lastName, String gender, long age, String phone, String address, String securityCode) {
+    public PatientEntity(String identityNumber, String firstName, String lastName, String gender, int age, String phone, String address, Long securityCode) {
         this.identityNumber = identityNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -102,6 +102,10 @@ public class PatientEntity implements Serializable
     public String toString() 
     {
         return "entity.PatientEntity[ patientId=" + this.patientId + " ]";
+    }
+
+    public long getAge() {
+        return age;
     }
 
     public Long getPatientId() {
@@ -165,11 +169,11 @@ public class PatientEntity implements Serializable
         this.address = address;
     }
 
-    public String getSecurityCode() {
+    public Long getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(String securityCode) {
+    public void setSecurityCode(Long securityCode) {
         this.securityCode = securityCode;
     }
 
