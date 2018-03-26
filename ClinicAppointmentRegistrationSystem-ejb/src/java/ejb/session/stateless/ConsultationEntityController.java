@@ -89,6 +89,14 @@ public class ConsultationEntityController implements ConsultationEntityControlle
             throw new ConsultationNotFoundException("Consultation ID " + consultationId + " does not exist!");
         }
     }
+
+    @Override
+    public  List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date) {
+        return entityManager.createQuery(
+            "SELECT c FROM ConsultationEntity c WHERE c.date LIKE :curDate ORDER BY c.date DESC")
+            .setParameter("curDate", date)
+            .getResultList();
+    }
     
     @Override
     public void updateConsultation(ConsultationEntity consultationEntity)
