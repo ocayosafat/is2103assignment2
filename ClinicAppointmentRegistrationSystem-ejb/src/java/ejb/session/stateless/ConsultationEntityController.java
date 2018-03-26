@@ -93,7 +93,7 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     @Override
     public  List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date) {
         return entityManager.createQuery(
-            "SELECT c FROM ConsultationEntity c WHERE c.date LIKE :curDate ORDER BY c.date DESC")
+            "SELECT c FROM ConsultationEntity c WHERE c.date LIKE :curDate ORDER BY c.queueNumber DESC")
             .setParameter("curDate", date)
             .getResultList();
     }
