@@ -36,7 +36,7 @@ public class AdministrationModule {
         this.staffEntityControllerRemote = staffEntityControllerRemote;
     }
     
-    public void administrationOperation() {
+    public void administrationOperation() throws DoctorNotFoundException, StaffNotFoundException {
         
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -85,7 +85,7 @@ public class AdministrationModule {
         }
     }
     
-    public void doPatientManagementOperation() {
+    public void doPatientManagementOperation() throws PatientNotFoundException {
         
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -183,7 +183,7 @@ public class AdministrationModule {
 
         for(PatientEntity patientEntity:patientEntities)
         {
-            System.out.printf("%8s%20s%20s%20s%20s%20s%20s%20s%20s\n", patientEntity.getPatientId().toString(), patientEntity.getIdentityNumber(), patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getGender(), patientEntity.getAge().toString(), patientEntity.getPhone(), patientEntity.getAddress().toString(), patientEntity.getSecurityCode().toString());
+            System.out.printf("%8s%20s%20s%20s%20s%20s%20s%20s%20s\n", patientEntity.getPatientId().toString(), patientEntity.getIdentityNumber(), patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getGender(), patientEntity.getAge().toString(), patientEntity.getPhone(), patientEntity.getAddress(), patientEntity.getSecurityCode().toString());
         }
         
         System.out.print("Press any key to continue...> ");
@@ -321,7 +321,7 @@ public class AdministrationModule {
     }
     
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeletePatient() {
+    public void doDeletePatient() throws PatientNotFoundException {
         Scanner scanner = new Scanner(System.in);        
         String input;
         String identityNumberToBeDeleted;
@@ -389,7 +389,7 @@ public class AdministrationModule {
         {
             PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(patientIdentityNumber);
             System.out.printf("%8s%20s%20s%20s%20s%20s%20s%20s%20s\n", "Patient ID", "Patient Identity Number", "First Name", "Last Name", "Gender", "Age", "Phone", "Address", "Security Code");
-            System.out.printf("%8s%20s%20s%20s%20s%20s%20s%20s%20s\n", patientEntity.getPatientId().toString(), patientEntity.getIdentityNumber(), patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getGender(), patientEntity.getAge().toString(), patientEntity.getPhone(), patientEntity.getAddress().toString(), patientEntity.getSecurityCode().toString());
+            System.out.printf("%8s%20s%20s%20s%20s%20s%20s%20s%20s\n", patientEntity.getPatientId().toString(), patientEntity.getIdentityNumber(), patientEntity.getFirstName(), patientEntity.getLastName(), patientEntity.getGender(), patientEntity.getAge().toString(), patientEntity.getPhone(), patientEntity.getAddress(), patientEntity.getSecurityCode().toString());
             System.out.println("-------------------------------------------------------------------------");
             System.out.println("1: Update Patient");
             System.out.println("2: Delete Patient");
@@ -411,7 +411,7 @@ public class AdministrationModule {
         }
     }
     
-    public void doStaffManagementOperation() {
+    public void doStaffManagementOperation() throws StaffNotFoundException {
         
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -617,7 +617,7 @@ public class AdministrationModule {
     }
     
     
-    public void doDeleteStaff() {
+    public void doDeleteStaff() throws StaffNotFoundException {
         Scanner scanner = new Scanner(System.in);        
         String input;
         Long staffIdToBeDeleted;
@@ -692,7 +692,7 @@ public class AdministrationModule {
         scanner.nextLine();
     }
     
-    public void doDoctorManagementOperation() {
+    public void doDoctorManagementOperation() throws DoctorNotFoundException {
         
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -770,7 +770,7 @@ public class AdministrationModule {
 
     }
     
-    public void doViewDoctorDetails()
+    public void doViewDoctorDetails() throws DoctorNotFoundException
     {
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -779,30 +779,22 @@ public class AdministrationModule {
         System.out.print("Enter Doctor ID> ");
         Long doctorId = scanner.nextLong();
         
-        try
+        DoctorEntity doctorEntity = doctorEntityControllerRemote.retrieveDoctorByDoctorId(doctorId);
+        System.out.printf("%8s%20s%20s%20s%20s\n", "Doctor ID", "First Name", "Last Name", "Registration", "Qualifications");
+        System.out.printf("%8s%20s%20s%20s%20s\n", doctorEntity.getDoctorId().toString(), doctorEntity.getFirstName(), doctorEntity.getLastName(), doctorEntity.getRegistration(), doctorEntity.getQualifications());
+        System.out.println("------------------------");
+        System.out.println("1: Update Doctor");
+        System.out.println("2: Delete Doctor");
+        System.out.println("3: Back\n");
+        System.out.print("> ");
+        response = scanner.nextInt();
+        if(response == 1)
         {
-            DoctorEntity doctorEntity = doctorEntityControllerRemote.retrieveDoctorByDoctorId(doctorId);
-            System.out.printf("%8s%20s%20s%20s%20s\n", "Doctor ID", "First Name", "Last Name", "Registration", "Qualifications");
-            System.out.printf("%8s%20s%20s%20s%20s\n", doctorEntity.getDoctorId().toString(), doctorEntity.getFirstName(), doctorEntity.getLastName(), doctorEntity.getRegistration(), doctorEntity.getQualifications());         
-            System.out.println("------------------------");
-            System.out.println("1: Update Doctor");
-            System.out.println("2: Delete Doctor");
-            System.out.println("3: Back\n");
-            System.out.print("> ");
-            response = scanner.nextInt();
-
-            if(response == 1)
-            {
-                doUpdateDoctor(doctorEntity);
-            }
-            else if(response == 2)
-            {
-                doDeleteDoctor(doctorEntity);
-            }
+            doUpdateDoctor(doctorEntity);
         }
-        catch(DoctorNotFoundException ex)
+        else if(response == 2)
         {
-            System.out.println("An error has occurred while retrieving doctor: " + ex.getMessage() + "\n");
+            doDeleteDoctor(doctorEntity);
         }
     }
     //This Method assumes all consultation/appointment entities are not changed
@@ -896,7 +888,7 @@ public class AdministrationModule {
         System.out.println("Doctor updated successfully!\n");
     }
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeleteDoctor() {
+    public void doDeleteDoctor() throws DoctorNotFoundException {
         Scanner scanner = new Scanner(System.in);        
         String input;
         Long doctorIdToBeDeleted;

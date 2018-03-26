@@ -5,6 +5,13 @@
  */
 package clinicadminterminalclient;
 
+import ejb.session.stateless.AppointmentEntityControllerRemote;
+import ejb.session.stateless.ConsultationEntityControllerRemote;
+import ejb.session.stateless.DoctorEntityControllerRemote;
+import ejb.session.stateless.PatientEntityControllerRemote;
+import ejb.session.stateless.StaffEntityControllerRemote;
+import javax.ejb.EJB;
+
 /**
  * Version 1.00
  * @author Yosafat
