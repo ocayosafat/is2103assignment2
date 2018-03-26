@@ -169,13 +169,7 @@ public class RegistrationModule {
 
             List<ConsultationEntity> allCurrConsultation = consultationEntityControllerRemote.retrieveAllConsultationThisDateInDescOrder(dateTime[0]);
 
-            long queue = 0;
-            if(allCurrConsultation.isEmpty()) {
-                queue++;
-            } else {
-                queue = allCurrConsultation.get(0).getDate();
-                queue++;
-            }
+            long queue = Long.valueOf(allCurrConsultation.size() + 1);
             newConsultationEntity.setQueueNumber(queue);
 
             newConsultationEntity = consultationEntityControllerRemote.createNewConsultation(newConsultationEntity);
@@ -220,13 +214,7 @@ public class RegistrationModule {
             
             List<ConsultationEntity> allCurrConsultation = consultationEntityControllerRemote.retrieveAllConsultationThisDateInDescOrder(dateTime[0]);
 
-            long queue = 0;
-            if(allCurrConsultation.isEmpty()) {
-                queue++;
-            } else {
-                queue = allCurrConsultation.get(0).getDate();
-                queue++;
-            }
+            long queue = Long.valueOf(allCurrConsultation.size() + 1);
             newConsultationEntity.setQueueNumber(queue);
 
             newConsultationEntity = consultationEntityControllerRemote.createNewConsultation(newConsultationEntity);
