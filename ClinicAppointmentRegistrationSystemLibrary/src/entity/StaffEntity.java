@@ -3,8 +3,6 @@ package entity;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,12 +28,11 @@ public class StaffEntity implements Serializable {
     public StaffEntity() {
     }
 
-    public StaffEntity(String firstName, String lastName, AccessRightEnum accessRightEnum, String username, String password) {
+    public StaffEntity(String firstName, String lastName,  String username, String password) {
         this();
 
         this.firstName = firstName;
         this.lastName = lastName;
-        this.accessRightEnum = accessRightEnum;
         this.username = username;
         this.password = password;
     }

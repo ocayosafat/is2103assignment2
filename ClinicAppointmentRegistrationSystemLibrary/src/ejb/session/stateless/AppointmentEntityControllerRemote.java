@@ -5,10 +5,22 @@
  */
 package ejb.session.stateless;
 
+import entity.AppointmentEntity;
+import entity.DoctorEntity;
+import entity.PatientEntity;
+import java.util.List;
+import util.exception.AppointmentNotFoundException;
+
 /**
  *
  * @author Aden
  */
-public class AppointmentEntityControllerRemote {
-    
+public interface AppointmentEntityControllerRemote {
+    AppointmentEntity createNewAppointment(AppointmentEntity newAppointmentEntity);
+    List<AppointmentEntity> retrieveAppointment();
+    AppointmentEntity retrieveAppointmentByAppointmentId(Long appointmentId) throws AppointmentNotFoundException;
+    List<AppointmentEntity> retrieveAppointmentByPatient(PatientEntity patientEntity) throws AppointmentNotFoundException;
+    void updateAppointment(AppointmentEntity appointmentEntity);
+    void deleteAppointment(Long appointmentId);
+    boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
 }
