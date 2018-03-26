@@ -167,10 +167,13 @@ public class RegistrationModule {
             }
             newConsultationEntity.setTime(workTime[availableIndex+startAppointmentIndex]);
 
-            long queue = consultationEntityControllerRemote.retrieveLatestQueueNumber(dateTime[0]);
-            if (queue == null) {
-                queue = 1;
+            List<ConsultationEntity> allCurrConsultation = consultationEntityControllerRemote.retrieveAllConsultationThisDateInDescOrder(dateTime[0]);
+
+            long queue = 0;
+            if(allCurrConsultation.isEmpty()) {
+                queue++;
             } else {
+                queue = allCurrConsultation.get(0).getDate();
                 queue++;
             }
             newConsultationEntity.setQueueNumber(queue);
@@ -214,11 +217,14 @@ public class RegistrationModule {
             newConsultationEntity.setPatient(movedAppointment.getPatient());
             newConsultationEntity.setTime(movedAppointment.getTime());
             newConsultationEntity.setDate(movedAppointment.getDate());
+            
+            List<ConsultationEntity> allCurrConsultation = consultationEntityControllerRemote.retrieveAllConsultationThisDateInDescOrder(dateTime[0]);
 
-            long queue = consultationEntityControllerRemote.retrieveLatestQueueNumber(movedAppointment.getDate());
-            if (queue == null) {
-                queue = 1;
+            long queue = 0;
+            if(allCurrConsultation.isEmpty()) {
+                queue++;
             } else {
+                queue = allCurrConsultation.get(0).getDate();
                 queue++;
             }
             newConsultationEntity.setQueueNumber(queue);
