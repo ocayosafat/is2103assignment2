@@ -57,6 +57,7 @@ public class DoctorEntityController implements DoctorEntityControllerLocal, Doct
         if(doctorEntity != null)
         {
             return doctorEntity;
+        }
         else
         {
             throw new DoctorNotFoundException("DoctorID " + doctorId + " does not exist!");
