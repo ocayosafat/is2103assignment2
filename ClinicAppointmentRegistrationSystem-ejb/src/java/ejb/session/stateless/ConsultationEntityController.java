@@ -17,9 +17,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import entity.ConsultationEntity;
 import java.util.List;
-import javax.persistence.NoResultException;
-import javax.persistence.NonUniqueResultException;
-import util.exception.EntityManagerException;
+import util.exception.ConsultationNotFoundException;
 
 
 /**
@@ -29,7 +27,7 @@ import util.exception.EntityManagerException;
  */
 
 @Stateless
-@Local(ConsultationEntityController.class)
+@Local(ConsultationEntityControllerLocal.class)
 @Remote(ConsultationEntityControllerRemote.class)
 
 public class ConsultationEntityController implements ConsultationEntityControllerLocal, ConsultationEntityControllerRemote
@@ -51,7 +49,7 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     
     
     @Override
-    public ConsultationEntity createNewQueue(ConsultationEntity newConsultationEntity) throws EntityManagerException {
+    public ConsultationEntity createNewQueue(ConsultationEntity newConsultationEntity)  {
         return (ConsultationEntity)entityManager.create(newConsultationEntity); //need to revise this
     }    
     

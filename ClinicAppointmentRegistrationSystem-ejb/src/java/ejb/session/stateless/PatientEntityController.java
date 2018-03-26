@@ -7,9 +7,13 @@ package ejb.session.stateless;
 
 import entity.PatientEntity;
 import java.util.List;
+import javax.ejb.Local;
+import javax.ejb.Remote;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import util.exception.PatientNotFoundException;
 
 /**
  * Version 1.00
@@ -47,7 +51,7 @@ public class PatientEntityController implements PatientEntityControllerLocal, Pa
     }
     
     @Override
-    public PatientEntity retrievePatientByPatientId(Long PatientId) throws PatientNotFoundException
+    public PatientEntity retrievePatientByPatientId(Long patientId) throws PatientNotFoundException
     {
         PatientEntity patientEntity = em.find(PatientEntity.class, patientId);
         
@@ -72,7 +76,7 @@ public class PatientEntityController implements PatientEntityControllerLocal, Pa
         }
         else
         {
-            throw new PatientNotFoundException("PatientID " + patientId + " does not exist!");
+            throw new PatientNotFoundException("Patient Identity Number " + identityNumber + " does not exist!");
         }
     }
     

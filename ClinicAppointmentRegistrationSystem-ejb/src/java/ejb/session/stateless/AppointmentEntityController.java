@@ -18,11 +18,11 @@ import javax.persistence.Query;
 import entity.AppointmentEntity;
 import entity.DoctorEntity;
 import entity.PatientEntity;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
+import util.exception.AppointmentNotFoundException;
 
 /**
  * Version 1.02
@@ -37,7 +37,7 @@ import javax.persistence.NonUniqueResultException;
 
 
 @Stateless
-@Local(AppointmentEntityController.class)
+@Local(AppointmentEntityControllerLocal.class)
 @Remote(AppointmentEntityControllerRemote.class)
 
 public class AppointmentEntityController implements AppointmentEntityControllerLocal, AppointmentEntityControllerRemote
@@ -116,7 +116,12 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public void deleteAppointment(Long appointmentId)
     {
-        AppointmentEntity appointmentEntityToRemove =retrieveAppointmentByAppointmentId(appointmentId);
+        AppointmentEntity appointmentEntityToRemove;
+        try {
+            appointmentEntityToRemove = retrieveAppointmentByAppointmentId(appointmentId);
+        } catch (AppointmentNotFoundException ex) {
+            Logger.getLogger(AppointmentEntityController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         entityManager.remove(appointmentEntityToRemove);
     }
     
@@ -135,7 +140,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
         
         try {
             //Uncertain, need to confirm functionality***************************
-            AppointmentEntity taken = query.getSingleResult();
+            AppointmentEntity taken = (AppointmentEntity) query.getSingleResult();
             if(taken == null) {
                 return true;
             }

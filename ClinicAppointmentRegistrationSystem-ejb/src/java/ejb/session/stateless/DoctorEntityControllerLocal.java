@@ -5,9 +5,9 @@
  */
 package ejb.session.stateless;
 
-import entity.PatientEntity;
+import entity.DoctorEntity;
 import java.util.List;
-import util.exception.PatientNotFoundException;
+import util.exception.DoctorNotFoundException;
 
 /**
  * Version 1.0
@@ -15,12 +15,10 @@ import util.exception.PatientNotFoundException;
  */
 public interface DoctorEntityControllerLocal {
     
-    PatientEntity createNewPatient(PatientEntity newPatientEntity);
-    List<PatientEntity> retrieveAllPatients();
-    PatientEntity retrievePatientByPatientId(Long PatientId) throws PatientNotFoundException;
-    PatientEntity retrievePatientByPatientIdentityNumber(String identityNumber) throws PatientNotFoundException;
-    void updatePatient(PatientEntity patientEntity);
-    void deletePatient(String identityNumber) throws PatientNotFoundException;
-    
+    DoctorEntity createNewDoctor(DoctorEntity newDoctorEntity);
+    List<DoctorEntity> retrieveAllDoctors();
+    DoctorEntity retrieveDoctorByDoctorId(Long doctorId) throws DoctorNotFoundException;
+    void updateDoctor(DoctorEntity doctorEntity);
+    void deleteDoctor(Long doctorId) throws DoctorNotFoundException;
     
 }
