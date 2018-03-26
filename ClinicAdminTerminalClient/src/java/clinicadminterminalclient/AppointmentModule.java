@@ -7,17 +7,18 @@ package clinicadminterminalclient;
 
 import java.util.Scanner;
 import ejb.session.stateless.AppointmentEntityControllerRemote;
-import ejb.session.stateless.ConsultantionEntityControllerRemote;
 import ejb.session.stateless.PatientEntityControllerRemote;
 import ejb.session.stateless.DoctorEntityControllerRemote;
 import entity.AppointmentEntity;
-import entity.ConsultantionEntity;
 import entity.DoctorEntity;
 import entity.PatientEntity;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import util.exception.AppointmentNotFoundException;
+import util.exception.DoctorNotFoundException;
+import util.exception.PatientNotFoundException;
 
 /**
  * Version 1.00
@@ -41,7 +42,6 @@ public class AppointmentModule {
     
     public void AppointmentModule(PatientEntityControllerRemote patientEntityControllerRemote, DoctorEntityControllerRemote doctorEntityControllerRemote, AppointmentEntityControllerRemote ApointmentEntityControllerRemote) 
     {
-        this();
         this.patientEntityControllerRemote = patientEntityControllerRemote;
         this.doctorEntityControllerRemote = doctorEntityControllerRemote;
         this.appointmentEntityControllerRemote = appointmentEntityControllerRemote;
@@ -96,7 +96,7 @@ public class AppointmentModule {
         }
     }
 
-    private void doViewPatientAppointment() {
+    private void doViewPatientAppointment() throws AppointmentNotFoundException {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("*** CARS :: Appointment Operation :: View Patient Appointment ***\n");
@@ -175,7 +175,7 @@ public class AppointmentModule {
                 
                 //isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity)
                 for(int i=0; i < workTime.length; i++) {
-                    if(isAvaliableByDateTimeDoctor(textDate, workTime[i], mydoctorEntity)) {
+                    if(isAvailableByDateTimeDoctor(textDate, workTime[i], mydoctorEntity)) {
                         System.out.print(workTime[i] + " ");
                         availableTime.add(workTime[i]);
                     }
@@ -232,7 +232,7 @@ public class AppointmentModule {
         System.out.print("\n");
     }
 
-    private void doCancelAppointment() {
+    private void doCancelAppointment() throws AppointmentNotFoundException {
         Scanner scanner = new Scanner(System.in);
         
         System.out.println("*** CARS :: Appointment Operation :: Cancel Appointment ***\n");

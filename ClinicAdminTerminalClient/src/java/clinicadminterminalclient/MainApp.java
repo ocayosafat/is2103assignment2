@@ -5,6 +5,15 @@
  */
 package clinicadminterminalclient;
 
+import ejb.session.stateless.AppointmentEntityControllerRemote;
+import ejb.session.stateless.ConsultationEntityControllerRemote;
+import ejb.session.stateless.DoctorEntityControllerRemote;
+import ejb.session.stateless.PatientEntityControllerRemote;
+import ejb.session.stateless.StaffEntityControllerRemote;
+import entity.StaffEntity;
+import java.util.Scanner;
+import util.exception.InvalidLoginException;
+
 /**
  * Version 1.00
  * @author Yosafat
@@ -105,7 +114,7 @@ public class MainApp {
  			System.out.println("4. Logout\n");
  			response = 0;
 
- 			while(response < 1 || respone > 4) {
+ 			while(response < 1 || response > 4) {
  				System.out.print("> ");
  				response = scanner.nextInt();
 
