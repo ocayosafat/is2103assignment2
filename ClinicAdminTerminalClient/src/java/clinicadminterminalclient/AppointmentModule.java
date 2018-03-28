@@ -21,7 +21,7 @@ import util.exception.DoctorNotFoundException;
 import util.exception.PatientNotFoundException;
 
 /**
- * Version 1.00
+ * Version 1.01
  * @author Yk
  */
 
@@ -40,14 +40,14 @@ public class AppointmentModule {
     }
     
     
-    public void AppointmentModule(PatientEntityControllerRemote patientEntityControllerRemote, DoctorEntityControllerRemote doctorEntityControllerRemote, AppointmentEntityControllerRemote ApointmentEntityControllerRemote) 
+    public void AppointmentModule(PatientEntityControllerRemote patientEntityControllerRemote, DoctorEntityControllerRemote doctorEntityControllerRemote, AppointmentEntityControllerRemote appointmentEntityControllerRemote) 
     {
         this.patientEntityControllerRemote = patientEntityControllerRemote;
         this.doctorEntityControllerRemote = doctorEntityControllerRemote;
         this.appointmentEntityControllerRemote = appointmentEntityControllerRemote;
     }
 
-    public void menuAppointment()
+    public void menuAppointment() throws AppointmentNotFoundException
     {
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
@@ -175,7 +175,7 @@ public class AppointmentModule {
                 
                 //isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity)
                 for(int i=0; i < workTime.length; i++) {
-                    if(isAvailableByDateTimeDoctor(textDate, workTime[i], mydoctorEntity)) {
+                    if(appointmentEntityControllerRemote.isAvailableByDateTimeDoctor(textDate, workTime[i], mydoctorEntity)) {
                         System.out.print(workTime[i] + " ");
                         availableTime.add(workTime[i]);
                     }
@@ -197,7 +197,7 @@ public class AppointmentModule {
                         PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(identityNumber); 
 
                         //AppointmentEntity(PatientEntity patient, DoctorEntity doctor, String date, String time) 
-                        createNewAppointment(new AppointmentEntity(patientEntity,mydoctorEntity, inputdate,selectedTime));
+                        appointmentEntityControllerRemote.createNewAppointment(new AppointmentEntity(patientEntity,mydoctorEntity, inputdate,selectedTime));
                         System.out.println("Appointment:" + patientEntity.getFirstName() + " " + patientEntity.getLastName() + " and " + mydoctorEntity.getFirstName() + " " + mydoctorEntity.getLastName() + " at " + selectedTime + " on " + inputdate + " has been added." );
                     }
                     catch(PatientNotFoundException ex)
