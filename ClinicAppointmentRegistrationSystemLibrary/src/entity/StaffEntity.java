@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-
 public class StaffEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,6 +15,7 @@ public class StaffEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long staffId;
+    
     @Column(nullable = false)
     private String firstName;
     @Column(nullable = false)
