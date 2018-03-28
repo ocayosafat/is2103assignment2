@@ -107,11 +107,9 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     
     
     @Override
-    public boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
+    public boolean isAvailableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
       
-        //query appointment
-        
-        
+        //query appointment   
         Query query = em.createQuery("SELECT a FROM ConsultationEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
         query.setParameter("inDoctorentity", doctorEntity);
         query.setParameter("inDate", Date);

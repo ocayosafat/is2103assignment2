@@ -22,5 +22,5 @@ public interface ConsultationEntityControllerLocal {
     List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date);
     void updateConsultation(ConsultationEntity consultationEntity);
     void deleteConsultation(Long consultationId) throws  ConsultationNotFoundException;
-    boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
+    boolean isAvailableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
 }

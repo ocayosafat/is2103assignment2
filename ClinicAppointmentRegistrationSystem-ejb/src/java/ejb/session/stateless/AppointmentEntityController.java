@@ -123,7 +123,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     }
     
     @Override
-    public boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
+    public boolean isAvailableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
       
         //query appointment
         
