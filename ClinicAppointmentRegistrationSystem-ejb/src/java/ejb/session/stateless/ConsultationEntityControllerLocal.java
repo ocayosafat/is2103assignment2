@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.ConsultationEntity;
+import entity.DoctorEntity;
 import java.util.List;
 import util.exception.ConsultationNotFoundException;
 
@@ -15,11 +16,11 @@ import util.exception.ConsultationNotFoundException;
  */
 public interface ConsultationEntityControllerLocal {
     
-    ConsultationEntity createNewQueue(ConsultationEntity newConsultationEntity);
     ConsultationEntity createNewConsultation(ConsultationEntity newConsultationEntity);
     List<ConsultationEntity> retrieveAllConsultation();
     ConsultationEntity retrieveConsultationByConsultationId(Long consultationId) throws ConsultationNotFoundException;
     List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date);
     void updateConsultation(ConsultationEntity consultationEntity);
-    void deleteConsultation(Long consultationId);
+    void deleteConsultation(Long consultationId) throws  ConsultationNotFoundException;
+    boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
 }

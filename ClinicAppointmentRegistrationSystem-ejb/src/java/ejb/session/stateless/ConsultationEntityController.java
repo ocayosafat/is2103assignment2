@@ -7,21 +7,21 @@ package ejb.session.stateless;
 
 
 import javax.persistence.EntityManager;
-import javax.annotation.Resource;
-import javax.ejb.EJB;
-import javax.ejb.EJBContext;
 import javax.ejb.Local;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import entity.ConsultationEntity;
+import entity.DoctorEntity;
 import java.util.List;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import util.exception.ConsultationNotFoundException;
 
 
 /**
- * Verson 1.0
+ * Version 1.01
  *  
  * @author Yk
  */
@@ -33,32 +33,23 @@ import util.exception.ConsultationNotFoundException;
 public class ConsultationEntityController implements ConsultationEntityControllerLocal, ConsultationEntityControllerRemote
 {
     @PersistenceContext(unitName = "ClinicAppointmentRegistrationSytem-ejbPU")
-    private javax.persistence.EntityManager entityManager;
-    @Resource
-    private EJBContext eJBContext;
-    
-    @EJB
-    private ConsultationEntityControllerLocal consultationEntityControllerLocal;
-    
+    private EntityManager em;
+
     
     
     public ConsultationEntityController()
     {
-        entityManager = new EntityManager();
+
     }
     
     
-    @Override
-    public ConsultationEntity createNewQueue(ConsultationEntity newConsultationEntity)  {
-        return (ConsultationEntity)entityManager.create(newConsultationEntity); //need to revise this
-    }    
     
 
     @Override
     public ConsultationEntity createNewConsultation(ConsultationEntity newConsultationEntity) 
     {
-        entityManager.persist(newConsultationEntity);
-        entityManager.flush();
+        em.persist(newConsultationEntity);
+        em.flush();
         
         return newConsultationEntity;
     }
@@ -67,7 +58,7 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     @Override
     public List<ConsultationEntity> retrieveAllConsultation()
     {
-        Query query = entityManager.createQuery("SELECT c FROM ConsultationEntity c");
+        Query query = em.createQuery("SELECT c FROM ConsultationEntity c");
         
         return query.getResultList();
     }
@@ -76,7 +67,7 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     @Override
     public ConsultationEntity retrieveConsultationByConsultationId(Long consultationId) throws ConsultationNotFoundException
     {
-        ConsultationEntity consultationEntity = entityManager.find(ConsultationEntity.class, consultationId);
+        ConsultationEntity consultationEntity = em.find(ConsultationEntity.class, consultationId);
         
         if(consultationEntity != null)
         {
@@ -90,7 +81,7 @@ public class ConsultationEntityController implements ConsultationEntityControlle
 
     @Override
     public  List<ConsultationEntity> retrieveAllConsultationThisDateInDescOrder(String date) {
-        return entityManager.createQuery(
+        return em.createQuery(
             "SELECT c FROM ConsultationEntity c WHERE c.date LIKE :curDate ORDER BY c.queueNumber DESC")
             .setParameter("curDate", date)
             .getResultList();
@@ -99,19 +90,54 @@ public class ConsultationEntityController implements ConsultationEntityControlle
     @Override
     public void updateConsultation(ConsultationEntity consultationEntity)
     {
-        entityManager.merge(consultationEntity);
+        em.merge(consultationEntity);
     }
     
     
     
     @Override
-    public void deleteConsultation(Long consultationId)
+    public void deleteConsultation(Long consultationId) throws ConsultationNotFoundException
     {
-        ConsultationEntity consultationEntityToRemove =retrieveConsultationByConsultationId(consultationId);
-        entityManager.remove(consultationEntityToRemove);
+ 
+            ConsultationEntity consultationEntityToRemove =retrieveConsultationByConsultationId(consultationId);
+            em.remove(consultationEntityToRemove);
+ 
     }
     
     
+    
+    @Override
+    public boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
+      
+        //query appointment
+        
+        
+        Query query = em.createQuery("SELECT a FROM ConsultationEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
+        query.setParameter("inDoctorentity", doctorEntity);
+        query.setParameter("inDate", Date);
+        query.setParameter("inTime", Time);
+        
+        
+        
+        try {
+            //Uncertain, need to confirm functionality***************************
+            ConsultationEntity taken = (ConsultationEntity) query.getSingleResult();
+            if(taken == null) {
+                return true;
+            }
+            else {
+                return false;
+            }
+       
+        }
+        catch(NoResultException | NonUniqueResultException ex) {
+            return  true;
+        }
+        
+        
+        
+  
+    }
     
 
 }

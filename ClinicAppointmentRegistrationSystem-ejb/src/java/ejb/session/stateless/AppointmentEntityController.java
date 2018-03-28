@@ -43,18 +43,14 @@ import util.exception.AppointmentNotFoundException;
 public class AppointmentEntityController implements AppointmentEntityControllerLocal, AppointmentEntityControllerRemote
 {
     @PersistenceContext(unitName = "ClinicAppointmentRegistrationSytem-ejbPU")
-    private javax.persistence.EntityManager entityManager;
-    @Resource
-    private EJBContext eJBContext;
-    
-    @EJB
-    private ConsultationEntityControllerLocal consultationEntityControllerLocal;
+    private EntityManager em;
+
     
     
     
     public AppointmentEntityController()
     {
-        entityManager = new EntityManager();
+
     }
     
     
@@ -62,8 +58,8 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public AppointmentEntity createNewAppointment(AppointmentEntity newAppointmentEntity) 
     {
-        entityManager.persist(newAppointmentEntity);
-        entityManager.flush();
+        em.persist(newAppointmentEntity);
+        em.flush();
         
         return newAppointmentEntity;
     }
@@ -72,7 +68,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public List<AppointmentEntity> retrieveAppointment()
     {
-        Query query = entityManager.createQuery("SELECT a FROM AppointmentEntity a");
+        Query query = em.createQuery("SELECT a FROM AppointmentEntity a");
         
         return query.getResultList();
     }
@@ -81,7 +77,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public AppointmentEntity retrieveAppointmentByAppointmentId(Long appointmentId) throws AppointmentNotFoundException
     {
-        AppointmentEntity appointmentEntity = entityManager.find(AppointmentEntity.class, appointmentId);
+        AppointmentEntity appointmentEntity = em.find(AppointmentEntity.class, appointmentId);
         
         if(appointmentEntity != null)
         {
@@ -97,7 +93,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public List<AppointmentEntity> retrieveAppointmentByPatient(PatientEntity patientEntity) throws AppointmentNotFoundException
     {
-        Query query = entityManager.createQuery("SELECT a FROM AppointmentEntity a WHERE a.patiententity = :inPatientenity");
+        Query query = em.createQuery("SELECT a FROM AppointmentEntity a WHERE a.patiententity = :inPatientenity");
         query.setParameter("inPatientenity", patientEntity);
       
             return query.getResultList();
@@ -108,7 +104,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     @Override
     public void updateAppointment(AppointmentEntity appointmentEntity)
     {
-        entityManager.merge(appointmentEntity);
+        em.merge(appointmentEntity);
     }
     
     
@@ -119,10 +115,11 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
         AppointmentEntity appointmentEntityToRemove;
         try {
             appointmentEntityToRemove = retrieveAppointmentByAppointmentId(appointmentId);
+            em.remove(appointmentEntityToRemove);
         } catch (AppointmentNotFoundException ex) {
             Logger.getLogger(AppointmentEntityController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        entityManager.remove(appointmentEntityToRemove);
+
     }
     
     @Override
@@ -131,7 +128,7 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
         //query appointment
         
         
-        Query query = entityManager.createQuery("SELECT a FROM AppointmentEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
+        Query query = em.createQuery("SELECT a FROM AppointmentEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
         query.setParameter("inDoctorentity", doctorEntity);
         query.setParameter("inDate", Date);
         query.setParameter("inTime", Time);
