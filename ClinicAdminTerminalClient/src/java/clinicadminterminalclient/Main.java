@@ -11,6 +11,11 @@ import ejb.session.stateless.DoctorEntityControllerRemote;
 import ejb.session.stateless.PatientEntityControllerRemote;
 import ejb.session.stateless.StaffEntityControllerRemote;
 import javax.ejb.EJB;
+import util.exception.AppointmentNotFoundException;
+import util.exception.ConsultationFullyBookedException;
+import util.exception.DoctorNotFoundException;
+import util.exception.PatientNotFoundException;
+import util.exception.StaffNotFoundException;
 
 /**
  * Version 1.00
@@ -29,7 +34,7 @@ public class Main {
     @EJB
     private static AppointmentEntityControllerRemote appointmentEntityControllerRemote;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws AppointmentNotFoundException, DoctorNotFoundException, StaffNotFoundException, ConsultationFullyBookedException, PatientNotFoundException {
         MainApp mainApp = new MainApp(staffEntityControllerRemote, patientEntityControllerRemote, doctorEntityControllerRemote, consultationEntityControllerRemote, appointmentEntityControllerRemote);
     	mainApp.runApp();
     }

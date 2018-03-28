@@ -12,10 +12,7 @@ import ejb.session.stateless.PatientEntityControllerRemote;
 import ejb.session.stateless.StaffEntityControllerRemote;
 import entity.StaffEntity;
 import java.util.Scanner;
-import util.exception.DoctorNotFoundException;
-import util.exception.InvalidLoginException;
-import util.exception.PatientNotFoundException;
-import util.exception.StaffNotFoundException;
+import util.exception.*;
 
 /**
  * Version 1.00
@@ -45,7 +42,7 @@ public class MainApp {
  		this.appointmentEntityCotrollerRemote = appointmentEntityCotrollerRemote;
  	}
 
- 	public void runApp() throws DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException {
+ 	public void runApp() throws AppointmentNotFoundException, DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException, ConsultationFullyBookedException {
  		Scanner scanner = new Scanner(System.in);
  		Integer response = 0;
 
@@ -62,7 +59,7 @@ public class MainApp {
  					try {
  						doLogin();
  						administrationModule = new AdministrationModule(patientEntityControllerRemote, doctorEntityControllerRemote, staffEntityControllerRemote);
- 						appointmentModule = new AppointmentModule(); // parameters still need to be added
+ 						appointmentModule = new AppointmentModule(patientEntityControllerRemote, doctorEntityControllerRemote, appointmentEntityCotrollerRemote); // parameters still need to be added
  						registrationModule = new RegistrationModule(patientEntityControllerRemote, doctorEntityControllerRemote, consultationEntityControllerRemote, appointmentEntityCotrollerRemote);
  						menuMain();
  					}
@@ -104,7 +101,7 @@ public class MainApp {
  		}
  	}
 
- 	private void menuMain() throws DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException {
+ 	private void menuMain() throws AppointmentNotFoundException, DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException, ConsultationFullyBookedException{
  		Scanner scanner = new Scanner(System.in);
  		Integer response = 0;
 
