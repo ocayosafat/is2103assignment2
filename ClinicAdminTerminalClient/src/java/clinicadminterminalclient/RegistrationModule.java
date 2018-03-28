@@ -50,7 +50,7 @@ public class RegistrationModule {
         this.appointmentEntityControllerRemote = appointmentEntityControllerRemote;
     }
 
-    public void menuRegistration() {
+    public void menuRegistration() throws ConsultationFullyBookedException, PatientNotFoundException, DoctorNotFoundException, AppointmentNotFoundException {
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
 
@@ -149,11 +149,11 @@ public class RegistrationModule {
         }
 
         for (int j = 0; j < 6 && index < workTime.length; j++, index++) {
-            System.out.print(workTime[i] + " |"); // error from here onwards.
+            System.out.print(workTime[index] + " |"); // error from here onwards.
             int doctorId = 1;
             for (DoctorEntity doctor : allDoctors) {
-                boolean available = ConsultationEntityControllerRemote.isAvailableByDateTimeDoctor(dateTime[0], workTime[i], doctor)
-                        && consultationEntityControllerRemote.isAvailableByDateTimeDoctor(dateTime[0], workTime[i], doctor);
+                boolean available = appointmentEntityControllerRemote.isAvaliableByDateTimeDoctor(dateTime[0], workTime[index], doctor)
+                        && consultationEntityControllerRemote.isAvailableByDateTimeDoctor(dateTime[0], workTime[index], doctor);
                 if (available) {
                     System.out.print("O |");
                     doctorAvailability[doctorId - 1].append("O");
@@ -181,7 +181,7 @@ public class RegistrationModule {
             newConsultationEntity.setDate(dateTime[0]);
             // check the stringbuilder index with doctor id-1
             // check with indexOf("O"), will return -1 if no "O"
-            int availableIndex = doctorAvailability[consultationDoctorId - 1].indexOf("O"); //long -1 is to store as integer hmm
+            int availableIndex = doctorAvailability[consultationDoctorId.intValue() -1].indexOf("O"); //long -1 is to store as integer hmm
             if (availableIndex == -1) {
                 throw new ConsultationFullyBookedException("There is no available consultation slot for this doctor currently.");
             }
@@ -229,6 +229,10 @@ public class RegistrationModule {
             newConsultationEntity.setTime(movedAppointment.getTime());
             newConsultationEntity.setDate(movedAppointment.getDate());
 
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+            LocalDateTime now = LocalDateTime.now();
+            String[] dateTime = dtf.format(now).split(" ");
+        
             List<ConsultationEntity> allCurrConsultation = consultationEntityControllerRemote.retrieveAllConsultationThisDateInDescOrder(dateTime[0]);
 
             Long queue = Long.valueOf(allCurrConsultation.size() + 1);
@@ -245,13 +249,10 @@ public class RegistrationModule {
 
     private String roundOff(String time) {
         String[] hourMin = time.split(":");
-        if ((int min =   Integer.parseInt(hourMin[1])) {
-            < 
-        }
-        
-            30) {
-    		return new String(hourMin[0] + ":" + "00");
-        }
-        return new String(hourMin[0] + ":" + "30");
+        int min = Integer.parseInt(hourMin[1]);
+    	if (min < 30) {
+            return new String(hourMin[0] + ":" + "00");
+    	}
+    	return new String(hourMin[0] + ":" + "30");
     }
 }
