@@ -153,7 +153,7 @@ public class AppointmentModule {
             System.out.println("Enter Doctor Id> ");
             Long doctorId = scanner.nextLong();
             DoctorEntity mydoctorEntity = doctorEntityControllerRemote.retrieveDoctorByDoctorId(doctorId);
-            
+            scanner.nextLine();
             System.out.println("Enter Date> ");
             
             String inputdate = scanner.nextLine().trim();
