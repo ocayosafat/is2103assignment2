@@ -25,7 +25,7 @@ import util.exception.DoctorNotFoundException;
 
 public class DoctorEntityController implements DoctorEntityControllerLocal, DoctorEntityControllerRemote {
     
-    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem")
+    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem-ejbPU")
     private EntityManager em;
     
     public DoctorEntityController() {
