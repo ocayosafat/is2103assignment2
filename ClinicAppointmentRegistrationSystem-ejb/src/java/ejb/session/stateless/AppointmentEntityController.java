@@ -42,7 +42,7 @@ import util.exception.AppointmentNotFoundException;
 
 public class AppointmentEntityController implements AppointmentEntityControllerLocal, AppointmentEntityControllerRemote
 {
-    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSytem-ejbPU")
+    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem-ejbPU")
     private EntityManager em;
 
     
@@ -144,7 +144,6 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
             else {
                 return false;
             }
-       
         }
         catch(NoResultException | NonUniqueResultException ex) {
             return  true;
