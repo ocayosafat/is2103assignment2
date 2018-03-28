@@ -12,7 +12,10 @@ import ejb.session.stateless.PatientEntityControllerRemote;
 import ejb.session.stateless.StaffEntityControllerRemote;
 import entity.StaffEntity;
 import java.util.Scanner;
+import util.exception.DoctorNotFoundException;
 import util.exception.InvalidLoginException;
+import util.exception.PatientNotFoundException;
+import util.exception.StaffNotFoundException;
 
 /**
  * Version 1.00
@@ -42,7 +45,7 @@ public class MainApp {
  		this.appointmentEntityCotrollerRemote = appointmentEntityCotrollerRemote;
  	}
 
- 	public void runApp() {
+ 	public void runApp() throws DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException {
  		Scanner scanner = new Scanner(System.in);
  		Integer response = 0;
 
@@ -101,7 +104,7 @@ public class MainApp {
  		}
  	}
 
- 	private void menuMain() {
+ 	private void menuMain() throws DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException {
  		Scanner scanner = new Scanner(System.in);
  		Integer response = 0;
 
@@ -121,7 +124,7 @@ public class MainApp {
  				if(response == 1) {
  					registrationModule.menuRegistration();
  				} else if (response == 2) {
- 					appointmentModule.;
+ 					appointmentModule.menuAppointment();
  				} else if (response == 3) {
  					administrationModule.administrationOperation();
  				} else if (response == 4) {

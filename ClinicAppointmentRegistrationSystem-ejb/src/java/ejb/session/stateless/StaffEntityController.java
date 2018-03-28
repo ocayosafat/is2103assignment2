@@ -29,7 +29,7 @@ import util.exception.StaffNotFoundException;
 
 public class StaffEntityController implements StaffEntityControllerLocal, StaffEntityControllerRemote {
     
-    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem")
+    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem-ejbPU")
     private EntityManager em;
 
     public StaffEntityController() {
