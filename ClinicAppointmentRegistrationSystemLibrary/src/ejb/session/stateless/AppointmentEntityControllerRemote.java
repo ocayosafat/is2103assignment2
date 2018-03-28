@@ -22,5 +22,5 @@ public interface AppointmentEntityControllerRemote {
     List<AppointmentEntity> retrieveAppointmentByPatient(PatientEntity patientEntity) throws AppointmentNotFoundException;
     void updateAppointment(AppointmentEntity appointmentEntity);
     void deleteAppointment(Long appointmentId);
-    boolean isAvaliableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
+    boolean isAvailableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity);
 }
