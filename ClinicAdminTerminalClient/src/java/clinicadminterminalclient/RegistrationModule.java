@@ -152,7 +152,7 @@ public class RegistrationModule {
             System.out.print(workTime[index] + " |"); // error from here onwards.
             int doctorId = 1;
             for (DoctorEntity doctor : allDoctors) {
-                boolean available = appointmentEntityControllerRemote.isAvaliableByDateTimeDoctor(dateTime[0], workTime[index], doctor)
+                boolean available = appointmentEntityControllerRemote.isAvailableByDateTimeDoctor(dateTime[0], workTime[index], doctor)
                         && consultationEntityControllerRemote.isAvailableByDateTimeDoctor(dateTime[0], workTime[index], doctor);
                 if (available) {
                     System.out.print("O |");
