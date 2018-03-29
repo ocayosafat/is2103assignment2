@@ -42,7 +42,7 @@ import util.exception.AppointmentNotFoundException;
 
 public class AppointmentEntityController implements AppointmentEntityControllerLocal, AppointmentEntityControllerRemote
 {
-    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSytem-ejbPU")
+    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem-ejbPU")
     private EntityManager em;
 
     
@@ -126,10 +126,10 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
     public boolean isAvailableByDateTimeDoctor(String Date, String Time, DoctorEntity doctorEntity) {
       
         //query appointment
+        Long doctorid = doctorEntity.getDoctorId();
         
-        
-        Query query = em.createQuery("SELECT a FROM AppointmentEntity a WHERE a.doctorentity = :inDoctorentity AND a.date = :inDate AND a.time = :inTime");
-        query.setParameter("inDoctorentity", doctorEntity);
+        Query query = em.createQuery("SELECT a FROM AppointmentEntity a WHERE a.doctor_doctorId = :inDoctorid AND a.date = :inDate AND a.time = :inTime");
+        query.setParameter("inDoctorid", doctorid);   // need to jointable to fetch foreign key?
         query.setParameter("inDate", Date);
         query.setParameter("inTime", Time);
         
@@ -144,7 +144,6 @@ public class AppointmentEntityController implements AppointmentEntityControllerL
             else {
                 return false;
             }
-       
         }
         catch(NoResultException | NonUniqueResultException ex) {
             return  true;

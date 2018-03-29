@@ -32,7 +32,7 @@ import util.exception.ConsultationNotFoundException;
 
 public class ConsultationEntityController implements ConsultationEntityControllerLocal, ConsultationEntityControllerRemote
 {
-    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSytem-ejbPU")
+    @PersistenceContext(unitName = "ClinicAppointmentRegistrationSystem-ejbPU")
     private EntityManager em;
 
     

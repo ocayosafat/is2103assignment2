@@ -41,6 +41,7 @@ public class StaffEntityController implements StaffEntityControllerLocal, StaffE
     {
         em.persist(newStaffEntity);
         em.flush();
+
         
         return newStaffEntity;
     }
@@ -110,6 +111,7 @@ public class StaffEntityController implements StaffEntityControllerLocal, StaffE
     public void updateStaff(StaffEntity staffEntity)
     {
         em.merge(staffEntity);
+
     }
     
     
@@ -118,6 +120,7 @@ public class StaffEntityController implements StaffEntityControllerLocal, StaffE
     {
         StaffEntity staffEntityToRemove = retrieveStaffByStaffId(staffId);
         em.remove(staffEntityToRemove);
+
     }
     
     
