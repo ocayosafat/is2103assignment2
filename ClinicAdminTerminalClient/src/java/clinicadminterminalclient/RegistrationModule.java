@@ -58,7 +58,7 @@ public class RegistrationModule {
             System.out.println("*** CARS :: Registration Operation ***\n");
             System.out.println("1: Register New Patient");
             System.out.println("2: Register Walk-In Consultation");
-            System.out.println("3: Register Consultation By Consultation");
+            System.out.println("3: Register Consultation By Appointment");
             System.out.println("4: Back\n");
             response = 0;
 

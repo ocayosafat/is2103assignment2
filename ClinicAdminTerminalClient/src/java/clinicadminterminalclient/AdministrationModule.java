@@ -118,7 +118,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doAddPatient() {
+    private void doAddPatient() {
         Scanner scanner = new Scanner(System.in);
         PatientEntity newPatientEntity = new PatientEntity();
 
@@ -146,7 +146,7 @@ public class AdministrationModule {
         //missing try catch phrase, assuming creating of patient is always successful
     }
 
-    public void doViewAllPatients() {
+    private void doViewAllPatients() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -163,7 +163,7 @@ public class AdministrationModule {
         scanner.nextLine();
     }
 
-    public void doUpdatePatient() {
+    private void doUpdatePatient() {
 
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -227,7 +227,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doUpdatePatient(PatientEntity patientEntity) {
+    private void doUpdatePatient(PatientEntity patientEntity) {
 
         Scanner scanner = new Scanner(System.in);
         String input;
@@ -280,7 +280,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeletePatient() throws PatientNotFoundException {
+    private void doDeletePatient() throws PatientNotFoundException {
         Scanner scanner = new Scanner(System.in);
         String input;
         String identityNumberToBeDeleted;
@@ -305,7 +305,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeletePatient(PatientEntity patientEntity) {
+    private void doDeletePatient(PatientEntity patientEntity) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -325,7 +325,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doViewPatientDetails() {
+    private void doViewPatientDetails() {
         try {
 
             Scanner scanner = new Scanner(System.in);
@@ -400,7 +400,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doAddStaff() {
+    private void doAddStaff() {
         Scanner scanner = new Scanner(System.in);
         StaffEntity newStaffEntity = new StaffEntity();
 
@@ -420,7 +420,7 @@ public class AdministrationModule {
         //missing try catch phrase, assuming creating of patient is always successful
     }
 
-    public void doViewStaffDetails() {
+    private void doViewStaffDetails() {
         Scanner scanner = new Scanner(System.in);
         Integer response;
 
@@ -449,7 +449,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doUpdateStaff() {
+    private void doUpdateStaff() {
         Scanner scanner = new Scanner(System.in);
         String input;
         Long staffIdToUpdate;
@@ -495,7 +495,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doUpdateStaff(StaffEntity staffEntity) {
+    private void doUpdateStaff(StaffEntity staffEntity) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -531,7 +531,7 @@ public class AdministrationModule {
         System.out.println("Staff updated successfully!\n");
     }
 
-    public void doDeleteStaff() throws StaffNotFoundException {
+    private void doDeleteStaff() throws StaffNotFoundException {
         Scanner scanner = new Scanner(System.in);
         String input;
         Long staffIdToBeDeleted;
@@ -556,7 +556,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doDeleteStaff(StaffEntity staffEntity) {
+    private void doDeleteStaff(StaffEntity staffEntity) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -576,7 +576,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doViewAllStaffs() {
+    private void doViewAllStaffs() {
 
         Scanner scanner = new Scanner(System.in);
 
@@ -636,7 +636,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doAddDoctor() {
+    private void doAddDoctor() {
         Scanner scanner = new Scanner(System.in);
         DoctorEntity newDoctorEntity = new DoctorEntity();
 
@@ -655,7 +655,7 @@ public class AdministrationModule {
 
     }
 
-    public void doViewDoctorDetails() throws DoctorNotFoundException {
+    private void doViewDoctorDetails() throws DoctorNotFoundException {
         Scanner scanner = new Scanner(System.in);
         Integer response = 0;
 
@@ -680,7 +680,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doUpdateDoctor() {
+    private void doUpdateDoctor() {
         Scanner scanner = new Scanner(System.in);
         String input;
         Long doctorIdToUpdate;
@@ -728,7 +728,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doUpdateDoctor(DoctorEntity doctorEntity) {
+    private void doUpdateDoctor(DoctorEntity doctorEntity) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -764,7 +764,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeleteDoctor() throws DoctorNotFoundException {
+    private void doDeleteDoctor() throws DoctorNotFoundException {
         Scanner scanner = new Scanner(System.in);
         String input;
         Long doctorIdToBeDeleted;
@@ -790,7 +790,7 @@ public class AdministrationModule {
     }
 
     //This Method assumes all consultation/appointment entities are not changed
-    public void doDeleteDoctor(DoctorEntity doctorEntity) {
+    private void doDeleteDoctor(DoctorEntity doctorEntity) {
         Scanner scanner = new Scanner(System.in);
         String input;
 
@@ -810,7 +810,7 @@ public class AdministrationModule {
         }
     }
 
-    public void doViewAllDoctors() {
+    private void doViewAllDoctors() {
 
         Scanner scanner = new Scanner(System.in);
 
