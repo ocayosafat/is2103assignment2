@@ -77,7 +77,7 @@ public class RegistrationModule {
                     System.out.println("Invalid option, please try again!\n");
                 }
             }
-            if (response == 7) {
+            if (response == 4) {
                 break;
             }
         }
