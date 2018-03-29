@@ -5,8 +5,9 @@
         <group>
             <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/stateless/PatientEntityController.java</file>
             <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/singleton/DataInitializationSessionBean.java</file>
+            <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/stateless/DoctorEntityController.java</file>
+            <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/stateless/ConsultationEntityController.java</file>
             <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/stateless/StaffEntityController.java</file>
-            <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/conf/persistence.xml</file>
             <file>file:/C:/Users/user/Desktop/ClinicAppointmentRegistrationSystem/ClinicAppointmentRegistrationSystem-ejb/src/java/ejb/session/stateless/AppointmentEntityController.java</file>
         </group>
     </open-files>

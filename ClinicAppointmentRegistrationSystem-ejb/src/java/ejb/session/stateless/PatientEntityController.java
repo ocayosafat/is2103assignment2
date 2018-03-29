@@ -38,6 +38,7 @@ public class PatientEntityController implements PatientEntityControllerLocal, Pa
     {
         em.persist(newPatientEntity);
         em.flush();
+//        em.refresh(newPatientEntity);
         
         return newPatientEntity;
     }
@@ -68,22 +69,25 @@ public class PatientEntityController implements PatientEntityControllerLocal, Pa
     @Override
     public PatientEntity retrievePatientByPatientIdentityNumber(String identityNumber) throws PatientNotFoundException
     {
-        PatientEntity patientEntity = em.find(PatientEntity.class, identityNumber);
-        
-        if(patientEntity != null)
-        {
-            return patientEntity;
+        Query query = em.createQuery("SELECT p FROM PatientEntity p WHERE p.identityNumber LIKE :input")
+        .setParameter("input", identityNumber);
+
+        List<PatientEntity> target = query.getResultList();
+
+        if ( target.isEmpty()) { //patient no found, invalid identity number
+            throw new PatientNotFoundException("Patient Identity Number" + identityNumber + "does not exists!");
         }
-        else
-        {
-            throw new PatientNotFoundException("Patient Identity Number " + identityNumber + " does not exist!");
+        else {
+            return target.get(0); //return PatientEntity to result
         }
+
     }
     
     @Override
     public void updatePatient(PatientEntity patientEntity)
     {
         em.merge(patientEntity);
+//        em.refresh(patientEntity);
     }
     
     
@@ -92,6 +96,7 @@ public class PatientEntityController implements PatientEntityControllerLocal, Pa
     {
         PatientEntity patientEntityToRemove = retrievePatientByPatientIdentityNumber(identityNumber);
         em.remove(patientEntityToRemove);
+//        em.refresh(patientEntityToRemove);
     }
     
     

@@ -37,6 +37,7 @@ public class DoctorEntityController implements DoctorEntityControllerLocal, Doct
     {
         em.persist(newDoctorEntity);
         em.flush();
+//        em.refresh(newDoctorEntity);
         
         return newDoctorEntity;
     }
@@ -76,6 +77,7 @@ public class DoctorEntityController implements DoctorEntityControllerLocal, Doct
     {
         DoctorEntity doctorEntityToRemove = retrieveDoctorByDoctorId(doctorId);
         em.remove(doctorEntityToRemove);
+//        em.refresh(doctorEntityToRemove);
     }
     
     
