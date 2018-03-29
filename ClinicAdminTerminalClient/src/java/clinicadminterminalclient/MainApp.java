@@ -23,7 +23,7 @@ public class MainApp {
     private PatientEntityControllerRemote patientEntityControllerRemote;
     private DoctorEntityControllerRemote doctorEntityControllerRemote;
     private ConsultationEntityControllerRemote consultationEntityControllerRemote;
-    private AppointmentEntityControllerRemote appointmentEntityCotrollerRemote;
+    private AppointmentEntityControllerRemote appointmentEntityControllerRemote;
 
  	private AdministrationModule administrationModule;
  	private AppointmentModule appointmentModule;
@@ -39,7 +39,7 @@ public class MainApp {
  		this.patientEntityControllerRemote = patientEntityControllerRemote;
  		this.doctorEntityControllerRemote = doctorEntityControllerRemote;
  		this.consultationEntityControllerRemote = consultationEntityControllerRemote;
- 		this.appointmentEntityCotrollerRemote = appointmentEntityCotrollerRemote;
+ 		this.appointmentEntityControllerRemote = appointmentEntityCotrollerRemote;
  	}
 
  	public void runApp() throws AppointmentNotFoundException, DoctorNotFoundException, StaffNotFoundException, PatientNotFoundException, ConsultationFullyBookedException {
@@ -59,8 +59,8 @@ public class MainApp {
  					try {
  						doLogin();
  						administrationModule = new AdministrationModule(patientEntityControllerRemote, doctorEntityControllerRemote, staffEntityControllerRemote);
- 						appointmentModule = new AppointmentModule(patientEntityControllerRemote, doctorEntityControllerRemote, appointmentEntityCotrollerRemote); // parameters still need to be added
- 						registrationModule = new RegistrationModule(patientEntityControllerRemote, doctorEntityControllerRemote, consultationEntityControllerRemote, appointmentEntityCotrollerRemote);
+ 						appointmentModule = new AppointmentModule(patientEntityControllerRemote, doctorEntityControllerRemote, appointmentEntityControllerRemote); // parameters still need to be added
+ 						registrationModule = new RegistrationModule(patientEntityControllerRemote, doctorEntityControllerRemote, consultationEntityControllerRemote, appointmentEntityControllerRemote);
  						menuMain();
  					}
  					catch(InvalidLoginException ex) {
@@ -83,7 +83,7 @@ public class MainApp {
  		String password = "";
 
  		System.out.println("*** CARS :: Login ***\n");
- 		System.out.println("Enter username> ");
+ 		System.out.print("Enter username> ");
  		username = scanner.nextLine().trim();
  		System.out.print("Enter password> ");
  		password = scanner.nextLine().trim();

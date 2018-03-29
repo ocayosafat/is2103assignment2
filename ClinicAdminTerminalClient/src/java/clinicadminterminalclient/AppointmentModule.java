@@ -148,14 +148,13 @@ public class AppointmentModule {
                 System.out.println(doctorEntity.getDoctorId() + " |" + doctorEntity.getFirstName() + " " + doctorEntity.getLastName() );
             }
             System.out.println("\n");
-            System.out.println("\n");
-            
-            System.out.println("Enter Doctor Id> ");
+
+            System.out.print("Enter Doctor Id> ");
             Long doctorId = scanner.nextLong();
             DoctorEntity mydoctorEntity = doctorEntityControllerRemote.retrieveDoctorByDoctorId(doctorId);
-            
-            System.out.println("Enter Date> ");
-            
+            scanner.nextLine().trim();
+            System.out.print("Enter Date> ");
+
             String inputdate = scanner.nextLine().trim();
 
             LocalDate date = LocalDate.now();
@@ -184,16 +183,17 @@ public class AppointmentModule {
                 
                 
                 System.out.println("\n");
-                System.out.println("Enter time> ");
+                System.out.print("Enter time> ");
                 String selectedTime = scanner.nextLine().trim();
-                
+                scanner.nextLine().trim();
                 //implement check time
                 if(availableTime.contains(selectedTime)) {
                 
                 
-                    System.out.println("Enter Patient Identity Number> ");
+                    System.out.print("Enter Patient Identity Number> ");
                     String identityNumber = scanner.nextLine().trim();
-
+                    scanner.nextLine();
+                    
                     try {
                         PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(identityNumber); 
 
@@ -238,9 +238,9 @@ public class AppointmentModule {
         
         System.out.println("*** CARS :: Appointment Operation :: Cancel Appointment ***\n");
         
-        System.out.println("Enter Patient Identity Number> ");
+        System.out.print("Enter Patient Identity Number> ");
         String identityNumber = scanner.nextLine().trim();
-        
+        scanner.nextLine();
         try 
         {
             PatientEntity patientEntity = patientEntityControllerRemote.retrievePatientByPatientIdentityNumber(identityNumber); 
@@ -254,8 +254,9 @@ public class AppointmentModule {
                 System.out.println(appointmentEntity.getAppointmentId() + " |" + appointmentEntity.getDate() + " |" +  appointmentEntity.getTime() + " |" + appointmentEntity.getDoctor().getFirstName() + " " + appointmentEntity.getDoctor().getLastName());
             }
             
-            System.out.println("Enter Appointment Id> ");
+            System.out.print("Enter Appointment Id> ");
             Long appointmentId = scanner.nextLong();
+            scanner.nextLine();
             
             AppointmentEntity appointEntity = appointmentEntityControllerRemote.retrieveAppointmentByAppointmentId(appointmentId);
             DoctorEntity mydoctorEntity = appointEntity.getDoctor();
