@@ -77,7 +77,7 @@ public class RegistrationModule {
                     System.out.println("Invalid option, please try again!\n");
                 }
             }
-            if (response == 7) {
+            if (response == 4) {
                 break;
             }
         }
@@ -91,7 +91,8 @@ public class RegistrationModule {
         System.out.print("Enter Identity Number> ");
         newPatientEntity.setIdentityNumber(scanner.nextLine().trim());
         System.out.print("Enter Security Code> ");
-        newPatientEntity.setSecurityCode(Long.parseLong(scanner.nextLine().trim()));
+        newPatientEntity.setSecurityCode(scanner.nextLong());
+        scanner.nextLine();
         System.out.print("Enter First Name> ");
         newPatientEntity.setFirstName(scanner.nextLine().trim());
         System.out.print("Enter Last Name> ");
@@ -107,7 +108,7 @@ public class RegistrationModule {
         newPatientEntity.setAddress(scanner.nextLine().trim());
 
         newPatientEntity = patientEntityControllerRemote.createNewPatient(newPatientEntity);
-        System.out.println("Patient has been registered successfully!");
+        System.out.println("Patient has been registered successfully!\n");
     }
 
     private void doCreateNewWalkInConsultation() throws ConsultationFullyBookedException, DoctorNotFoundException, PatientNotFoundException {
@@ -193,7 +194,7 @@ public class RegistrationModule {
             newConsultationEntity.setQueueNumber(queue);
 
             newConsultationEntity = consultationEntityControllerRemote.createNewConsultation(newConsultationEntity);
-            System.out.println(newConsultationEntity.getDoctor().getFirstName() + " " + newConsultationEntity.getDoctor().getLastName() + " is going to see " + newConsultationEntity.getPatient().getFirstName() + " " + newConsultationEntity.getPatient().getLastName() + " at " + newConsultationEntity.getTime() + ". Queue Number is: " + newConsultationEntity.getQueueNumber() + ".");
+            System.out.println(newConsultationEntity.getDoctor().getFirstName() + " " + newConsultationEntity.getDoctor().getLastName() + " is going to see " + newConsultationEntity.getPatient().getFirstName() + " " + newConsultationEntity.getPatient().getLastName() + " at " + newConsultationEntity.getTime() + ". Queue Number is: " + newConsultationEntity.getQueueNumber() + ".\n");
         } catch (DoctorNotFoundException | PatientNotFoundException ex) {
             System.out.println("An error has occured\n");
         }
@@ -241,7 +242,7 @@ public class RegistrationModule {
             newConsultationEntity = consultationEntityControllerRemote.createNewConsultation(newConsultationEntity);
             System.out.println(newConsultationEntity.getPatient().getFirstName() + " " + newConsultationEntity.getPatient().getLastName()
                     + " is going to see " + newConsultationEntity.getDoctor().getFirstName() + " " + newConsultationEntity.getDoctor().getLastName()
-                    + " at " + newConsultationEntity.getTime() + ". Queue Number is: " + newConsultationEntity.getQueueNumber());
+                    + " at " + newConsultationEntity.getTime() + ". Queue Number is: " + newConsultationEntity.getQueueNumber() + ".\n");
         } catch (PatientNotFoundException | AppointmentNotFoundException ex) {
             System.out.println("An error has occured\n");
         }
